@@ -16,10 +16,19 @@ import {
   Footer,
   FooterWrapper,
 } from './styles';
+import {Alert} from 'react-native';
 
 export function SingIn() {
-  const {user} = useAuth();
-  console.log(user);
+  const {signInWithGoogle} = useAuth();
+
+  async function handleSignInWithGoogle() {
+    try {
+      await signInWithGoogle();
+    } catch (e) {
+      console.log(e);
+      Alert.alert('');
+    }
+  }
 
   return (
     <Container>
@@ -39,7 +48,11 @@ export function SingIn() {
 
       <Footer>
         <FooterWrapper>
-          <SignInSocialButton title="Entrar com Google" svg={GoogleSvg} />
+          <SignInSocialButton
+            title="Entrar com Google"
+            svg={GoogleSvg}
+            onPress={handleSignInWithGoogle}
+          />
           <SignInSocialButton title="Entrar com Apple" svg={AppleSvg} />
         </FooterWrapper>
       </Footer>
